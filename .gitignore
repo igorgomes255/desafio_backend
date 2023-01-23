@@ -1,0 +1,8 @@
+# folders
+venv
+__pycache__
+.vscode
+
+# files
+*.sqlite3
+.env
