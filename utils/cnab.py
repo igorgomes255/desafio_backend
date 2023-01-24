@@ -1,11 +1,13 @@
 from datetime import datetime
 
 
-def cnab_parser():
+def cnab_parser(file_name):
 
     cnab_array = []
 
-    file = open("CNAB.txt")
+    path = file_name
+
+    file = open(path)
 
     read_file = file.readlines()
 
@@ -41,4 +43,3 @@ def cnab_parser():
         cnab_array.append(new_obj)
 
     return cnab_array
-
