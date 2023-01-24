@@ -6,19 +6,20 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
+    <h1>Dados movimentações financeiras</h1>
     <div>
-      <h1>Dados movimentações financeiras</h1>
       <ul>
         {% for transaction in cnab %}
-        <li>Tipo: {{transaction.type}}</li>
-        <li>Data: {{transaction.date}}</li>
-        <li>Valor: R$ {{transaction.value}}</li>
-        <li>CPF: {{transaction.cpf}}</li>
-        <li>Cartão: {{transaction.card}}</li>
-        <li>Hora: {{transaction.hour}}</li>
-        <li>Dono da loja: {{ transaction.owner_shop }}</li>
-        <li>Nome da loja: {{ transaction.name_shop }}</li>
-        <p>----------------------------------</p>
+        <li>
+          <p class="nome_loja">Nome da loja: {{ transaction.name_shop }}</p>
+          <p>Dono da loja: {{ transaction.owner_shop }}</p>
+          <p>Tipo: {{transaction.type}}</p>
+          <p>Data: {{transaction.date}}</p>
+          <p>Valor: R$ {{transaction.value}}</p>
+          <p>CPF: {{transaction.cpf}}</p>
+          <p>Cartão: {{transaction.card}}</p>
+          <p>Hora: {{transaction.hour}}</p>
+        </li>
         {% endfor %}
       </ul>
     </div>
