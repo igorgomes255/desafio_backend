@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("cnab/", views.CnabView.as_view()),
-    path("upload/", views.CnabFile.as_view()),
+    path("transactions/", views.CnabView.as_view(), name="transactions"),
+    path("cnab/", views.CnabGetView.as_view(), name="cnab"),
 ]

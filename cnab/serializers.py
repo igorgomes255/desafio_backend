@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from .models import Transaction, Cnab
-
-
-class CnabFileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cnab
-        fields = "__all__"
+from .models import Transaction
 
 
 class CnabSerializer(serializers.ModelSerializer):
