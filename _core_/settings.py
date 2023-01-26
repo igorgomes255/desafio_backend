@@ -85,6 +85,8 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DATABASE"),
         "USER": os.getenv("POSTGRES_USERNAME"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": "cnab_desafio",
+        "PORT": 5432,
     }
 }
 
