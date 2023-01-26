@@ -2,41 +2,52 @@ from django.shortcuts import render
 from rest_framework.views import APIView, Response, Request, status
 from rest_framework.renderers import TemplateHTMLRenderer
 
-from .models import Transaction, Cnab
-from .serializers import CnabSerializer, CnabFileSerializer
+from .models import Transaction
+from forms.models import Cnab
+from .serializers import CnabSerializer
 from utils.cnab import cnab_parser
-
-
-class CnabFile(APIView):
-    def post(self, request):
-        serializer = CnabFileSerializer(data=request.FILES)
-
-        serializer.is_valid(raise_exception=True)
-
-        serializer.save()
-
-        return Response(serializer.data, status.HTTP_201_CREATED)
+from django.shortcuts import redirect
+from django.contrib import messages
 
 
 class CnabView(APIView):
+    def post(self, request: Request) -> Response:
+        try:
+            file_name = Cnab.objects.last().cnab
+
+            all_objects = cnab_parser(str(file_name))
+            serializer = CnabSerializer(data=all_objects, many=True)
+
+            serializer.is_valid(raise_exception=True)
+
+            if serializer.is_valid():
+                serializer.save()
+
+                return redirect("cnab")
+        except:
+            messages.error(request, "Mande o arquivo novamente por favor")
+            return render(request, "transaction.html")
+
+
+class CnabGetView(APIView):
+
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "index.html"
 
     def get(self, request: Request) -> Response:
-        cnab = Transaction.objects.all()
+        transactions = {}
+        negative_transactions = [2, 3, 9]
 
-        serializer = CnabSerializer(cnab, many=True)
+        cnab = Transaction.objects.values_list("name_shop", "value", "type")
 
-        return Response({"cnab": serializer.data})
+        for owner in cnab:
+            transactions[owner[0]] = 0
 
-    def post(self, request: Request) -> Response:
-        file_name = Cnab.objects.all()[0].cnab
+        for owner in cnab:
+            transactions[owner[0]] = (
+                transactions[owner[0]] + owner[1]
+                if owner[2] not in negative_transactions
+                else transactions[owner[0]] - owner[1]
+            )
 
-        all_objects = cnab_parser(str(file_name))
-        serializer = CnabSerializer(data=all_objects, many=True)
-
-        serializer.is_valid(raise_exception=True)
-
-        serializer.save()
-
-        return Response({"cnab": serializer.data}, status.HTTP_201_CREATED)
+        return Response({"cnab": transactions})
