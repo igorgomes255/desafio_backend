@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import dotenv
+from django.contrib.messages import constants as messages
 
 dotenv.load_dotenv()
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "cnab",
+    "forms",
 ]
 
 MIDDLEWARE = [
@@ -83,6 +85,8 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DATABASE"),
         "USER": os.getenv("POSTGRES_USERNAME"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        # "HOST": "cnab_desafio",
+        "PORT": 5432,
     }
 }
 
@@ -127,3 +131,11 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}

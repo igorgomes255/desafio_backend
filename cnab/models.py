@@ -16,7 +16,7 @@ class CnabType(models.Choices):
 class Transaction(models.Model):
     type = models.IntegerField(choices=CnabType.choices)
     date = models.DateField()
-    value = models.IntegerField()
+    value = models.DecimalField(max_digits=10, decimal_places=2)
     cpf = models.TextField(max_length=11)
     card = models.TextField(max_length=12)
     hour = models.TimeField()

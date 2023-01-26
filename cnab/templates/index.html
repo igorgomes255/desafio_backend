@@ -6,6 +6,17 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
-    <h1>Alguma coisa</h1>
+    <h1>Dados movimentações financeiras</h1>
+    <div>
+      <ul>
+        {% for key, value in cnab.items %}
+        <li>
+          <p>Nome: {{ key }}</p>
+          <p>Saldo: R$ {{ value }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <p><a href="{% url 'upload' %}">Retornar para updated</a></p>
   </body>
 </html>
