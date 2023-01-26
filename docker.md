@@ -18,7 +18,9 @@
 
 `2)` Mude as configurações em `init.sql`
 
-    Em init.sql mude o nome de usuário, coloque a senha e o banco de dados conforme o que está no .env para o docker criar o usuário e o banco de dados a partir do init.sql e depois poder acessar o banco de dados pelo .env
+    Em init.sql mude o nome de usuário, coloque a senha e o banco de dados conforme o que está no .env
+    para o docker criar o usuário e o banco de dados a partir do init.sql e depois poder acessar o
+    banco de dados pelo .env
 
     Exemplo no .env
 
