@@ -14,34 +14,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
 
+  {% load static %}
+
   <body>
-    {% load static %}
-
-    <div class="send_file">
-      <h1>Envie aqui seu arquivo para parsear seu CNAB</h1>
-
-      <form class="form_file" method="post" enctype="multipart/form-data">
-        {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Upload</button>
-      </form>
-
-      <div>
-        <form class="form_send" method="post" action="{% url 'transactions' %}">
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-
-      <p><a href="{% url 'cnab' %}">Return to home</a></p>
-    </div>
-
     {% block content %} {% for message in messages %}
 
-    <div class="alert alert-success alert-dismissible">
+    <div class="alert alert-danger alert-dismissible">
       <a href="#" class="close" data-dismiss="alert" aria-label="close"
         >&times;</a
       >
-      <strong>Sucesso!</strong> {{ message }}
+      <strong>Erro!</strong> {{ message }}
     </div>
+    <p><a href="{% url 'upload' %}">Retornar para upload</a></p>
 
     {% endfor %} {% endblock %}
   </body>
